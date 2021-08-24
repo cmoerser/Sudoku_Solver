@@ -3,10 +3,10 @@ Dieses Projekt bietet die Funktionalität zum Lösen jedes lösbaren Sudokus und
 
 # Informationen zu dem Code
 ## sudokusolver.py
-    Diese Datei beinhaltet den grundlegenden Algorithmus und gibt über die Konsole die Lösung zu einem im Code erstellten Sudoku-Board aus. 
+Diese Datei beinhaltet den grundlegenden Algorithmus und gibt über die Konsole die Lösung zu einem im Code erstellten Sudoku-Board aus. 
 
 ## sudoku_gui.py
-    In dieser Datei wird der gleiche Algorithmus verwendet, aber zum Zwecke der Veranschaulichung verlangsamt. Hierfür kann auf einer GUI ein belibiges (lösbares) Sudoku angeben werden und durch die Leertaste wird der Lösungsvorgang gestartet.
+In dieser Datei wird der gleiche Algorithmus verwendet, aber zum Zwecke der Veranschaulichung verlangsamt. Hierfür kann auf einer GUI ein belibiges (lösbares) Sudoku angeben werden und durch die Leertaste wird der Lösungsvorgang gestartet.
 
 # Requirements
 * pygame
