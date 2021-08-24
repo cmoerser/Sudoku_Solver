@@ -2,8 +2,8 @@ import pygame
 import time
 import threading
 
-pygame.init()
 
+# Leeres Sudoku-Board (kann vorgefüllt werden)
 sudoku = [
 			[0, 0, 0, 0, 0, 0, 0, 0, 0],
 			[0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -16,6 +16,10 @@ sudoku = [
 			[0, 0, 0, 0, 0, 0, 0, 0, 0]
 		]
 
+# Ob der Algorithmus in Echtzeit laufen soll oder nicht (Standard: False)
+inRealTime = True
+
+
 WIDTH, HEIGHT = 900, 950
 BLACK = (0,0,0)
 GREEN = (0, 255, 0)
@@ -23,6 +27,8 @@ GRAY = (100, 100, 100)
 WHITE = (255, 255, 255)
 RED = (255,0,0)
 
+
+pygame.init()
 
 
 class Grid:
@@ -127,7 +133,7 @@ def solveSudoku(grid,isRealTime):
             c.changeNumber(n,True)
             grid.draw_grid()
             pygame.display.update()
-            if not isRealTime: time.sleep(0.1)  
+            if not isRealTime: time.sleep(0.05)  
 
             if solveSudoku(grid,isRealTime):
                 return True
@@ -172,11 +178,12 @@ def main():
     grid = Grid(sudoku,WIN)
 
     run = True 
+    isSolving = False
     clock = pygame.time.Clock()
     
 
     while run:
-        clock.tick(30)
+        clock.tick(60)
         grid.draw_grid()
 
         for event in pygame.event.get():
@@ -185,14 +192,14 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 c = grid.selectCube(event.pos)
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_BACKSPACE:
+                if event.key == pygame.K_BACKSPACE and not isSolving:
                     print("Backspace")
                     if grid.selectedCube: grid.selectedCube.changeNumber(0,False)
-                elif event.key == pygame.K_SPACE:
-                    print("Space")
-                    solving = True
-                    threading._start_new_thread(solveSudoku,(grid,False))
-                else:
+                elif event.key == pygame.K_SPACE and not isSolving:
+                    #print("Space")
+                    isSolving = True
+                    threading._start_new_thread(solveSudoku,(grid,inRealTime))
+                elif not isSolving:
                     try:
                         zahl = int(event.unicode)
                         if zahl < 10 and zahl >= 0:
